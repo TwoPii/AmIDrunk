@@ -18,6 +18,11 @@ public class Controller {
             
     public Controller (){
         drinkers = new ArrayList<Drinker>();
+        drinkers = loadDrinkers();
+        //stuff
+        for(int i = 0; i < drinkers.size(); i++){
+            saveDrinker(drinkers.get(i));
+        }
         
 
     }
@@ -28,15 +33,13 @@ public class Controller {
         //boolean gender = getGender();
         //int time = getTimeToBeFine();
         
-        
-    
     }
     
-    public Drinker loadDrinker(){
+    public ArrayList<Drinker> loadDrinkers(){
         
         Drinker t;
         //t = new Drinker(...);
-        return t;
+        return new ArrayList<Drinker>();
         
     
     }
