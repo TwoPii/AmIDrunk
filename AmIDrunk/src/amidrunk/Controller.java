@@ -21,18 +21,34 @@ public class Controller {
         
 
     }
-    public void writeFile(String line){
+    
+    public void saveDrinker(Drinker t){
+    
+        //int weight = getWeight();
+        //boolean gender = getGender();
+        //int time = getTimeToBeFine();
+        
+        
+    
+    }
+    
+    public Drinker loadDrinker(){
+        
+        Drinker t;
+        //t = new Drinker(...);
+        return t;
+        
+    
+    }
+    public void writeFile(String line) throws FileNotFoundException, IOException{
     
         String ruta = "data.txt";
         File f = new File (ruta);
         BufferedWriter bw;
-        try{
-            bw = new BufferedWriter(new  FileWriter(f)); 
-            bw.write(line);
-            bw.close();
-        } catch (IOException a) {
-                
-        }
+        bw = new BufferedWriter(new  FileWriter(f)); 
+        bw.write(line);
+        bw.close();
+
     }
     
     public String showFile(int line) throws FileNotFoundException, IOException{
