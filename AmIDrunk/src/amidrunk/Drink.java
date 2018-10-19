@@ -10,13 +10,18 @@ package amidrunk;
  * @author kurur
  */
 public class Drink {
-    private char name;
+    public static final int BEER = 0;
+    public static final int COCKTAIL = 1;
+    public static final int SHOT = 2;
+    public static final int WINE = 3;
+    public static final int OTHER = 4;
+    private int name;
     private int graduation;
     private int volum;
     private double grams;
     private int drinktime;
 
-    public Drink(char name, int graduation, int volum, int drinktime) {
+    public Drink(int name, int graduation, int volum, int drinktime) {
         this.name = name;
         this.graduation = graduation;
         this.volum = volum;
@@ -32,7 +37,7 @@ public class Drink {
         return drinktime;
     }
 
-    public char getName() {
+    public int getName() {
         return name;
     }
 
@@ -44,7 +49,7 @@ public class Drink {
         return volum;
     }
 
-    public void setName(char name) {
+    public void setName(int name) {
         this.name = name;
     }
 
