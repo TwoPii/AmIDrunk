@@ -31,6 +31,38 @@ public class Drink {
     public int getDrinktime() {
         return drinktime;
     }
+
+    public char getName() {
+        return name;
+    }
+
+    public int getGraduation() {
+        return graduation;
+    }
+
+    public int getVolum() {
+        return volum;
+    }
+
+    public void setName(char name) {
+        this.name = name;
+    }
+
+    public void setGraduation(int graduation) {
+        this.graduation = graduation;
+    }
+
+    public void setVolum(int volum) {
+        this.volum = volum;
+    }
+
+    public void calculeGrams(double grams) {
+        this.grams = ((volum*graduation*0.8)/100) ;
+    }
+
+    public void setDrinktime(int drinktime) {
+        this.drinktime = drinktime;
+    }
     
     
 }
