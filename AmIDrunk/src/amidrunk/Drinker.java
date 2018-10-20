@@ -29,6 +29,7 @@ public class Drinker {
         this.drinksArray = new ArrayList<Drink>(numberOfDrinks);
         this.actualBAC = 0;
         this.lastDrinkTime = new Time();
+        this.timeToBeFine = new Time(0, 0, 0, 0);
         if(gender){
             R = 0.55;
             B = 0.0025;
