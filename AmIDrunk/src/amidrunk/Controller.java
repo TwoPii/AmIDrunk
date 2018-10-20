@@ -50,7 +50,7 @@ public class Controller {
             int i = 4;
             if (gender == "M") m = true;
             else m = false;
-            t = new Drinker(Integer.parseInt(weight),m,0);
+            t = new Drinker(name,Integer.parseInt(weight),m,0);
             while(showFile(i) != "END"){
                 nameD = Integer.parseInt(showFile(i));
                 vol = Integer.parseInt(showFile(++i));
@@ -61,7 +61,7 @@ public class Controller {
             }
             return t;
         } catch (IOException e){
-            t = new Drinker(0,true,0);
+            t = new Drinker("",0,true,0);
             return t;
         }
     }
