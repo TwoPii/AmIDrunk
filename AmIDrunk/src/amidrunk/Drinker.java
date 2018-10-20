@@ -79,8 +79,11 @@ public class Drinker {
     public double calculateAlcoholism(Drink d){
         Time actualTime = new Time();
                 
-        this.actualBAC = this.actualBAC - B * actualTime.getMinTimeDifference(this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - B * actualTime.getMinTimeDifference(d.getDrinkTime());
-        this.lastDrinkTime = actualTime;
+        System.out.println("Actual alcohol " + d.getGrams() * 100 / this.weight / this.R);
+        System.out.println("Alcohol lost " + 0.000175 * actualTime.getMinTimeDifference(d.getDrinkTime())/10);
+        
+        this.actualBAC = this.actualBAC - B * actualTime.getMinTimeDifference(this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - 0.000175 * actualTime.getMinTimeDifference(d.getDrinkTime());
+        this.lastDrinkTime = actualTime;        
         
         this.calculateTimeToBeFine();
         
