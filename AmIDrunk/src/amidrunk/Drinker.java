@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Drinker {
     private int weight;
     private boolean gender;
-    private int timeToBeFine;
+    private Time timeToBeFine;
     private double actualBAC; 
     private Time lastDrinkTime;
     private String name;
@@ -75,7 +75,8 @@ public class Drinker {
     }
 
     public void addDrink(Drink d){
-        this.drinksArray.add(d);       
+        this.drinksArray.add(d);     
+        this.calculateAlcoholism(d);
     }
     
     public double calculateAlcoholism(Drink d){
@@ -87,6 +88,7 @@ public class Drinker {
         return this.actualBAC;
     }
     
+    
     public int getDrinksAmount(){
         return this.drinksArray.size();        
     }
@@ -94,6 +96,8 @@ public class Drinker {
     public Drink getDrink(int i){
         return this.drinksArray.get(i);
     }
+    
+    
     
     public boolean canDrive(){
         if(this.timeToBeFine <= 0)
