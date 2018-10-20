@@ -30,17 +30,37 @@ public class Controller {
         String name = t.getName();
         int weight = t.getWeight();
         boolean gender = t.getGender();
-        int time = t.getTimeToBeFine();
-        for(int i = 0; i < t.getDrinksAmount(); i++){
-            Drink d = t.getDrink(i);
-            String nameD = d.getName().toString();
-            String vol = d.getVolum().toString();
-            String grade = d.getGraduation().toString();
-            String drinkTime = d.getDrinktime().toString();
-            writeFile(nameD);
-            writeFile(vol);
-            writeFile(grade);
-            writeFile(drinkTime);
+        Time time = t.getTimeToBeFine();
+        int dayf = time.day;
+        int hourf = time.hour;
+        int minf = time.min;
+        try{
+            writeFile(name);                                    //Nombre        (1)
+            writeFile(Integer.toString(weight));                //Peso          (2)
+            String gndr = "F";
+            if(gender)gndr = "M";
+            writeFile(gndr);                                    //Genero        (3)
+            double actualBAC = t.getActualBAC();
+            writeFile(Double.toString(actualBAC));              //BAC           (4)
+            writeFile(dayf + " " + hourf + " " + minf);         //TimetoBeFine  (5)
+            
+            for(int i = 0; i < t.getDrinksAmount(); i++){
+                Drink d = t.getDrink(i);
+                String nameD = Integer.toString(d.getName());   
+                String vol = Integer.toString(d.getVolum());
+                String grade = Integer.toString(d.getGraduation());
+                Time drinkTime = d.getDrinkTime();
+                int day = drinkTime.day;
+                int hour = drinkTime.hour;
+                int minute = drinkTime.min;
+                writeFile(nameD);                               //Nombre alcohol(6)
+                writeFile(vol);                                 //Volumen       (7)
+                writeFile(grade);                               //Graduacion    (8)
+                writeFile(day + " " + hour + " " + minute + " " + 0);     //Tiempo bebida (9)
+            }
+
+        } catch (IOException e){
+            
         }
         
     }
@@ -52,17 +72,22 @@ public class Controller {
             String name = showFile(0);
             String weight = showFile(1);
             String gender = showFile(2);
-            String time = showFile(3);
+            String actualBAC = showFile(3);
+            String timetobefine = showFile(4);
+            String []tim = timetobefine.split(" ");
             Drink d;
             boolean m;
             int vol;
             int grade;
             int nameD;
-            String drinkTime;
-            int i = 4;
+            Time timetobfine;
+            Time drinkTime;
+            int i = 5;
             if (gender == "M") m = true;
             else m = false;
             t = new Drinker(name,Integer.parseInt(weight),m,0);
+            t.setActualBAC(Double.parseDouble(actualBAC));
+            timetobfine = new Time (Integer.parseInt(tim[0]),Integer.parseInt(tim[1]) ,Integer.parseInt(tim[2]), Integer.parseInt(tim[3]));
             while(showFile(i) != "END"){
                 nameD = Integer.parseInt(showFile(i));
                 vol = Integer.parseInt(showFile(++i));
