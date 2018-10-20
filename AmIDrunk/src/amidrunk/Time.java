@@ -25,6 +25,13 @@ public class Time {
         this.min = this.getActualMin();
         this.sec = this.getActualSec();       
     }
+    
+    public Time(int day, int hour, int min, int sec){
+        this.day = day;
+        this.hour = hour;
+        this.min = min;
+        this.sec = sec;       
+    }
 
 public int getActualHour(){
 return Calendar.get(Calendar.HOUR_OF_DAY);
@@ -54,12 +61,12 @@ int y = this.GetActualyear();
 return s+m*100+h*10000+d*1000000+M*100000000;
 }
 
-public int getMinTimeDifference(Time t1, Time t2){
+public int getMinTimeDifference(Time t2){
     int dHour;
     int dMin;
     
-    dHour = t1.hour - t2.hour;
-    dMin = t1.min - t2.min;
+    dHour = this.hour - t2.hour;
+    dMin = this.min - t2.min;
     
     if(dHour < 0){
         dHour = 24 + dHour;

@@ -16,7 +16,7 @@ public class Drinker {
     private boolean gender;
     private int timeToBeFine;
     private double actualBAC; 
-    private double lastDrinkTime;
+    private Time lastDrinkTime;
     private String name;
     private ArrayList<Drink> drinksArray;
     public static double R;
@@ -28,7 +28,7 @@ public class Drinker {
         this.gender = gender;
         this.drinksArray = new ArrayList<Drink>(numberOfDrinks);
         this.actualBAC = 0;
-        this.lastDrinkTime = 0;
+        this.lastDrinkTime = new Time();
         if(gender){
             R = 0.55;
             B = 0.0025;
@@ -79,10 +79,10 @@ public class Drinker {
     }
     
     public double calculateAlcoholism(Drink d){
-        Time t = new Time();
-        
-        this.actualBAC =  this.actualBAC - B * (t.GetCodeDate() - this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - B * (t.GetCodeDate() - d.getDrinkTime());          
-        this.lastDrinkTime = (int) t.GetCodeDate();
+        Time actualTime = new Time();
+                
+        this.actualBAC = this.actualBAC - B * actualTime.getMinTimeDifference(this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - B * actualTime.getMinTimeDifference(d.getDrinkTime());
+        this.lastDrinkTime = actualTime;
         
         return this.actualBAC;
     }

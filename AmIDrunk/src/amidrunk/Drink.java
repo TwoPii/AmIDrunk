@@ -19,13 +19,13 @@ public class Drink {
     private int graduation;
     private int volum;
     private double grams;
-    private double drinkTime;
+    private Time drinkTime;
 
-    public Drink(int name, int graduation, int volum, double drinktime) {
+    public Drink(int name, int graduation, int volum, Time drinkTime) {
         this.name = name;
         this.graduation = graduation;
         this.volum = volum;
-        this.drinkTime = drinkTime;
+        this.drinkTime = new Time(drinkTime.day, drinkTime.hour, drinkTime.min, drinkTime.sec);
         this.grams = ((volum*graduation*0.8)/100) ;
     }
 
@@ -33,7 +33,7 @@ public class Drink {
         return grams;
     }
 
-    public double getDrinkTime() {
+    public Time getDrinkTime() {
         return drinkTime;
     }
 
@@ -65,7 +65,7 @@ public class Drink {
         this.grams = ((volum*graduation*0.8)/100) ;
     }
 
-    public void setDrinkTime(int drinkTime) {
+    public void setDrinkTime(Time drinkTime) {
         this.drinkTime = drinkTime;
     }
     
