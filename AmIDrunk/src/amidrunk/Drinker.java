@@ -32,10 +32,10 @@ public class Drinker {
         this.timeToBeFine = new Time(0, 0, 0, 0);
         if(gender){
             R = 0.55;
-            B = 0.0025;
+            B = 0.000175;
         } else {
             R = 0.68;
-            B = 0.0026;
+            B = 0.000175;
         }
     }
            
@@ -80,10 +80,13 @@ public class Drinker {
         Time actualTime = new Time();
                 
         System.out.println("Actual alcohol " + d.getGrams() * 100 / this.weight / this.R);
-        System.out.println("Alcohol lost " + 0.000175 * actualTime.getMinTimeDifference(d.getDrinkTime())/10);
+        System.out.println("Alcohol lost " + B * actualTime.getMinTimeDifference(d.getDrinkTime())/10);
         
-        this.actualBAC = this.actualBAC - B * actualTime.getMinTimeDifference(this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - 0.000175 * actualTime.getMinTimeDifference(d.getDrinkTime());
-        this.lastDrinkTime = actualTime;        
+        this.actualBAC = this.actualBAC - B * actualTime.getMinTimeDifference(this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - B * actualTime.getMinTimeDifference(d.getDrinkTime());
+        this.lastDrinkTime = actualTime;  
+        
+        if(this.actualBAC <= 0)
+            this.actualBAC = 0;
         
         this.calculateTimeToBeFine();
         
@@ -118,20 +121,31 @@ public class Drinker {
     public Time calculateTimeToBeFine(){
         //Time to be fine is the time when BAC <= 0;
         //t = Co-Ct/B = Co/B
-        int totalMin;
+        double totalMin;
         int day = 0;
         int hour = 0;
         int min = 0;
         
-        totalMin = (int) ((int) this.actualBAC/B);
+        //System.out.println("actualBAC " + this.actualBAC + " and B " + B);
+                
+                
+        totalMin = this.actualBAC/B;
+        
+        //System.out.println("totalMin "+ totalMin);
         
         min = (int) totalMin%60;
         hour = (int) totalMin/60;
         
+        //System.out.println("min " + min + " hour " + hour);
+        
         day = (int) hour/60;
         hour = (int) hour%60;
         
-        return new Time(day, hour, min, 0);
+        this.timeToBeFine.day = day;
+        this.timeToBeFine.hour = hour;
+        this.timeToBeFine.min = min;
+                
+        return this.timeToBeFine;
     }
 
     public boolean isGender() {
