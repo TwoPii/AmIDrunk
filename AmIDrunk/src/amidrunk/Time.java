@@ -79,16 +79,21 @@ public int getMinTimeDifference(Time t2){
 
     return 60*dHour + dMin;
 }
-/*   public static void main(String[] args) {
-    Time t = new Time();
-    int h = t.GetActualhour();
-    int m = t.GetActualmin();
-    int s = t.GetActualsec();
-    int M = t.GetActualmonth();
-    int d = t.GetActualday();
-    int y = t.GetActualyear();
-    
-    System.out.println(h+":"+m+":"+s+" del dia "+d+ " del mes " +M+ " del año" +y);
-    System.out.println(t.GetCodeDate());
-}*/
+
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getSec() {
+        return sec;
+    }
 }

@@ -51,7 +51,7 @@ public class Drinker {
         return gender;
     }
 
-    public int getTimeToBeFine() {
+    public Time getTimeToBeFine() {
         return timeToBeFine;
     }
 
@@ -70,10 +70,6 @@ public class Drinker {
         this.gender = gender;
     }
 
-    public void calculateTimeToBeFine(int timeToBeFine) {
-        this.timeToBeFine = timeToBeFine;
-    }
-
     public void addDrink(Drink d){
         this.drinksArray.add(d);     
         this.calculateAlcoholism(d);
@@ -85,7 +81,25 @@ public class Drinker {
         this.actualBAC = this.actualBAC - B * actualTime.getMinTimeDifference(this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - B * actualTime.getMinTimeDifference(d.getDrinkTime());
         this.lastDrinkTime = actualTime;
         
+        this.calculateTimeToBeFine();
+        
         return this.actualBAC;
+    }
+
+    public void setTimeToBeFine(Time timeToBeFine) {
+        this.timeToBeFine = timeToBeFine;
+    }
+
+    public void setActualBAC(double actualBAC) {
+        this.actualBAC = actualBAC;
+    }
+
+    public void setLastDrinkTime(Time lastDrinkTime) {
+        this.lastDrinkTime = lastDrinkTime;
+    }
+
+    public void setDrinksArray(ArrayList<Drink> drinksArray) {
+        this.drinksArray = drinksArray;
     }
     
     
@@ -97,12 +111,39 @@ public class Drinker {
         return this.drinksArray.get(i);
     }
     
+    public Time calculateTimeToBeFine(){
+        //Time to be fine is the time when BAC <= 0;
+        //t = Co-Ct/B = Co/B
+        int totalMin;
+        int day = 0;
+        int hour = 0;
+        int min = 0;
+        
+        totalMin = (int) ((int) this.actualBAC/B);
+        
+        min = (int) totalMin%60;
+        hour = (int) totalMin/60;
+        
+        day = (int) hour/60;
+        hour = (int) hour%60;
+        
+        return new Time(day, hour, min, 0);
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public double getActualBAC() {
+        return actualBAC;
+    }
+
+    public Time getLastDrinkTime() {
+        return lastDrinkTime;
+    }
     
     
     public boolean canDrive(){
-        if(this.timeToBeFine <= 0)
-            return true;
-        else
-            return false;
+        return this.actualBAC <= 0;
     }         
 }
