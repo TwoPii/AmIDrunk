@@ -22,7 +22,7 @@ public class Drinker {
 
     public Drinker(String name, int weight, boolean gender, int numberOfDrinks) {
         this.name = name;
-        this.weight = weight;
+        this.weight = weight * 1000;
         this.gender = gender;
         this.drinksArray = new ArrayList<Drink>(numberOfDrinks);
         if(gender){
@@ -75,17 +75,13 @@ public class Drinker {
     }
     
     public double actualAlcoholism(){
-        double[] alcoholGrams = new double[this.drinksArray.size()];
         double[] initialBAC = new double[this.drinksArray.size()];
         double finalBAC = 0;
-        for(int i = 0; i < this.drinksArray.size(); i++){
-            alcoholGrams[i] = (double) (this.drinksArray.get(i).getVolum()*this.drinksArray.get(i).getGraduation()*0.8);           
-            initialBAC[i] = alcoholGrams[i] * 100 / this.weight / this.R;
+        
+        for(int i = 0; i < this.drinksArray.size(); i++){       
+            initialBAC[i] = this.drinksArray.get(i).getGrams() * 100 / this.weight / this.R;
             finalBAC = initialBAC[i] - B * this.drinksArray.get(i).getDrinktime() + finalBAC;
         }
-        
-        
-        
         
         return 0;
     }
