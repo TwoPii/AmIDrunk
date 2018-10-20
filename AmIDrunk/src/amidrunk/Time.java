@@ -6,22 +6,21 @@
 package amidrunk;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
      
 /**
  *
  * @author kurur
  */
 public class Time {
-
-
-public double GetActualtime(){
-    
-return 0;
+Calendar Calendar = new GregorianCalendar();
+public int GetActualhour(){
+return Calendar.get(Calendar.HOUR_OF_DAY);
 }
-public double GetActualDate(){
-return 0;
+public int GetActualmin(){
+return Calendar.get(Calendar.MINUTE);
 }
-public double GetActualMonth(){
-return 0;    
+public int GetActualsec(){
+return Calendar.get(Calendar.SECOND);
 }
 }
