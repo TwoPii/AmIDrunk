@@ -65,8 +65,8 @@ public int getMinTimeDifference(Time t2){
     int dHour;
     int dMin;
     
-    dHour = this.hour - t2.hour;
-    dMin = this.min - t2.min;
+    dHour = t2.hour - this.hour;
+    dMin = t2.min - this.min;
     
     if(dHour < 0){
         dHour = 24 + dHour;
