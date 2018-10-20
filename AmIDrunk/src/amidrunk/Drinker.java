@@ -15,14 +15,20 @@ public class Drinker {
     private int weight;
     private boolean gender;
     private int timeToBeFine;
+    private String name;
     private ArrayList<Drink> drinksArray;
 
-    public Drinker(int weight, boolean gender, int numberOfDrinks) {
+    public Drinker(String name, int weight, boolean gender, int numberOfDrinks) {
+        this.name = name;
         this.weight = weight;
         this.gender = gender;
         this.drinksArray = new ArrayList<Drink>(numberOfDrinks);
     }
 
+    public String getName(){
+            return this.name;
+    }
+   
     public int getWeight() {
         return weight;
     }
@@ -38,7 +44,10 @@ public class Drinker {
     public ArrayList<Drink> getDrinksArray() {
         return drinksArray;
     }
-
+    
+    public void setName(String name){
+        this.name = name;
+    }
     public void setWeight(int weight) {
         this.weight = weight;
     }
