@@ -81,7 +81,7 @@ public class Controller {
             int grade;
             int nameD;
             Time timetobfine;
-            Time drinkTime;
+            String drinkTime;
             int i = 5;
             if (gender == "M") m = true;
             else m = false;
@@ -93,7 +93,8 @@ public class Controller {
                 vol = Integer.parseInt(showFile(++i));
                 grade = Integer.parseInt(showFile(++i));
                 drinkTime = showFile (++i);
-                d = new Drink(nameD,grade,vol,Integer.parseInt(drinkTime));
+                String []dt = drinkTime.split(" ");
+                d = new Drink(nameD,grade,vol,new Time(Integer.parseInt(dt[0]),Integer.parseInt(dt[1]),Integer.parseInt(dt[2]),Integer.parseInt(dt[3])));
                 t.addDrink(d);
             }
             return t;
