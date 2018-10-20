@@ -13,16 +13,14 @@ import java.io.*;
  */
 public class Controller {
     
-    private ArrayList<Drinker> drinkers;
+    private Drinker drinker;
     private File f;
             
     public Controller (){
-        drinkers = new ArrayList<Drinker>();
-        drinkers = loadDrinkers();
+
+        drinker = loadDrinker();
         //stuff
-        for(int i = 0; i < drinkers.size(); i++){
-            saveDrinker(drinkers.get(i));
-        }
+        saveDrinker(drinker);
         
 
     }
@@ -35,13 +33,37 @@ public class Controller {
         
     }
     
-    public ArrayList<Drinker> loadDrinkers(){
+    public Drinker loadDrinker(){
         
         Drinker t;
-        //t = new Drinker(...);
-        return new ArrayList<Drinker>();
-        
-    
+        try{
+            String name = showFile(0);
+            String weight = showFile(1);
+            String gender = showFile(2);
+            String time = showFile(3);
+            Drink d;
+            boolean m;
+            int vol;
+            int grade;
+            int nameD;
+            String drinkTime;
+            int i = 4;
+            if (gender == "M") m = true;
+            else m = false;
+            t = new Drinker(Integer.parseInt(weight),m,0);
+            while(showFile(i) != "END"){
+                nameD = Integer.parseInt(showFile(i));
+                vol = Integer.parseInt(showFile(++i));
+                grade = Integer.parseInt(showFile(++i));
+                drinkTime = showFile (++i);
+                d = new Drink(nameD,grade,vol,Integer.parseInt(drinkTime));
+                t.addDrink(d);
+            }
+            return t;
+        } catch (IOException e){
+            t = new Drinker(0,true,0);
+            return t;
+        }
     }
     public void writeFile(String line) throws FileNotFoundException, IOException{
     
@@ -60,7 +82,7 @@ public class Controller {
         int count = 0;
         FileReader f = new FileReader("data.txt");
         BufferedReader b = new BufferedReader(f);
-        while((str = b.readLine())!= null && line > count);
+        while((str = b.readLine())!= null && count < line) count++;
         return str;
     }
 }
