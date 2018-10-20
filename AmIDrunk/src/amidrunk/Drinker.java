@@ -15,6 +15,8 @@ public class Drinker {
     private int weight;
     private boolean gender;
     private int timeToBeFine;
+    private double actualBAC; 
+    private double lastDrinkTime;
     private String name;
     private ArrayList<Drink> drinksArray;
     public static double R;
@@ -25,6 +27,8 @@ public class Drinker {
         this.weight = weight * 1000;
         this.gender = gender;
         this.drinksArray = new ArrayList<Drink>(numberOfDrinks);
+        this.actualBAC = 0;
+        this.lastDrinkTime = 0;
         if(gender){
             R = 0.55;
             B = 0.0025;
@@ -74,16 +78,21 @@ public class Drinker {
         this.drinksArray.add(d);       
     }
     
-    public double actualAlcoholism(){
-        double[] initialBAC = new double[this.drinksArray.size()];
-        double finalBAC = 0;
+    public double calculateAlcoholism(Drink d){
+        Time t = new Time();
         
-        for(int i = 0; i < this.drinksArray.size(); i++){       
-            initialBAC[i] = this.drinksArray.get(i).getGrams() * 100 / this.weight / this.R;
-            finalBAC = initialBAC[i] - B * this.drinksArray.get(i).getDrinktime() + finalBAC;
-        }
+        this.actualBAC =  this.actualBAC - B * (t.GetCodeDate() - this.lastDrinkTime) + d.getGrams() * 100 / this.weight / this.R - B * (t.GetCodeDate() - d.getDrinkTime());          
+        this.lastDrinkTime = (int) t.GetCodeDate();
         
-        return 0;
+        return this.actualBAC;
+    }
+    
+    public int getDrinksAmount(){
+        return this.drinksArray.size();        
+    }
+    
+    public Drink getDrink(int i){
+        return this.drinksArray.get(i);
     }
     
     public boolean canDrive(){
@@ -91,9 +100,5 @@ public class Drinker {
             return true;
         else
             return false;
-    }
-    
-    
-            
-            
+    }         
 }
