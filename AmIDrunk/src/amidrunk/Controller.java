@@ -25,6 +25,13 @@ public class Controller {
         
     }
     
+    public Drinker createDrinker(String name, String weight, String gender){
+        boolean gndr = false;
+        if(gender == "M") gndr = true;
+        int wght = Integer.parseInt(weight);
+        Drinker d = new Drinker(name,wght,gndr,0);
+        return d;
+    }
     public void saveDrinker(Drinker t){
     
         String name = t.getName();
