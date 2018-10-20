@@ -15,14 +15,14 @@ public class Controller {
     
     private Drinker drinker;
     private File f;
+    public static final int BEER = 0;
+    public static final int COCKTAIL = 1;
+    public static final int SHOT = 2;
+    public static final int WINE = 3;
+    public static final int OTHER = 4;
             
     public Controller (){
-
-        drinker = loadDrinker();
-        //stuff
-        saveDrinker(drinker);
         
-
     }
     
     public void saveDrinker(Drinker t){
@@ -34,16 +34,17 @@ public class Controller {
         int dayf = time.day;
         int hourf = time.hour;
         int minf = time.min;
-        try{
-            writeFile(name);                                    //Nombre        (1)
-            writeFile(Integer.toString(weight));                //Peso          (2)
+        ArrayList<String> text;
+        try{              
             String gndr = "F";
-            if(gender)gndr = "M";
-            writeFile(gndr);                                    //Genero        (3)
+            if(gender)gndr = "M";                                
             double actualBAC = t.getActualBAC();
-            writeFile(Double.toString(actualBAC));              //BAC           (4)
-            writeFile(dayf + " " + hourf + " " + minf);         //TimetoBeFine  (5)
-            
+            text = new ArrayList<String>();
+            text.add(name+"\n");
+            text.add(Integer.toString(weight)+"\n");
+            text.add(gndr+"\n");
+            text.add(Double.toString(actualBAC)+"\n");
+            text.add(dayf + " " + hourf + " " + minf+" " + "0 \n");
             for(int i = 0; i < t.getDrinksAmount(); i++){
                 Drink d = t.getDrink(i);
                 String nameD = Integer.toString(d.getName());   
@@ -53,11 +54,14 @@ public class Controller {
                 int day = drinkTime.day;
                 int hour = drinkTime.hour;
                 int minute = drinkTime.min;
-                writeFile(nameD);                               //Nombre alcohol(6)
-                writeFile(vol);                                 //Volumen       (7)
-                writeFile(grade);                               //Graduacion    (8)
-                writeFile(day + " " + hour + " " + minute + " " + 0);     //Tiempo bebida (9)
+                text.add(nameD+"\n");
+                text.add(vol+"\n");
+                text.add(grade+"\n");
+                text.add(day + " " + hour + " " + minute + " " + 0+"\n");
             }
+            text.add("-");
+            try{ writeFile(text);} catch (FileNotFoundException e){}
+
 
         } catch (IOException e){
             
@@ -88,7 +92,8 @@ public class Controller {
             t = new Drinker(name,Integer.parseInt(weight),m,0);
             t.setActualBAC(Double.parseDouble(actualBAC));
             timetobfine = new Time (Integer.parseInt(tim[0]),Integer.parseInt(tim[1]) ,Integer.parseInt(tim[2]), Integer.parseInt(tim[3]));
-            while(showFile(i) != "END"){
+            while(showFile(i).charAt(0) != '-'){
+                System.out.println(showFile(i));
                 nameD = Integer.parseInt(showFile(i));
                 vol = Integer.parseInt(showFile(++i));
                 grade = Integer.parseInt(showFile(++i));
@@ -96,6 +101,7 @@ public class Controller {
                 String []dt = drinkTime.split(" ");
                 d = new Drink(nameD,grade,vol,new Time(Integer.parseInt(dt[0]),Integer.parseInt(dt[1]),Integer.parseInt(dt[2]),Integer.parseInt(dt[3])));
                 t.addDrink(d);
+                ++i;
             }
             return t;
         } catch (IOException e){
@@ -103,13 +109,15 @@ public class Controller {
             return t;
         }
     }
-    public void writeFile(String line) throws FileNotFoundException, IOException{
+    public void writeFile(ArrayList<String> line) throws FileNotFoundException, IOException{
     
         String ruta = "data.txt";
         File f = new File (ruta);
         BufferedWriter bw;
         bw = new BufferedWriter(new  FileWriter(f)); 
-        bw.write(line);
+        for(int i = 0; i < line.size(); i++){
+            bw.write(line.get(i));
+        }
         bw.close();
 
     }
@@ -123,4 +131,6 @@ public class Controller {
         while((str = b.readLine())!= null && count < line) count++;
         return str;
     }
+    
+     
 }
