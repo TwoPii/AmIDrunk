@@ -27,9 +27,21 @@ public class Controller {
     
     public void saveDrinker(Drinker t){
     
-        //int weight = getWeight();
-        //boolean gender = getGender();
-        //int time = getTimeToBeFine();
+        String name = t.getName();
+        int weight = t.getWeight();
+        boolean gender = t.getGender();
+        int time = t.getTimeToBeFine();
+        for(int i = 0; i < t.getDrinksAmount(); i++){
+            Drink d = t.getDrink(i);
+            String nameD = d.getName().toString();
+            String vol = d.getVolum().toString();
+            String grade = d.getGraduation().toString();
+            String drinkTime = d.getDrinktime().toString();
+            writeFile(nameD);
+            writeFile(vol);
+            writeFile(grade);
+            writeFile(drinkTime);
+        }
         
     }
     
