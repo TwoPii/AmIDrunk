@@ -13,33 +13,64 @@ import java.util.GregorianCalendar;
  * @author kurur
  */
 public class Time {
-Calendar Calendar = new GregorianCalendar();
-public int GetActualhour(){
+    int day;
+    int hour;
+    int min;
+    int sec;
+    Calendar Calendar = new GregorianCalendar();
+
+    public Time() {
+        this.day = this.getActualDay();
+        this.hour = this.getActualHour();
+        this.min = this.getActualMin();
+        this.sec = this.getActualSec();       
+    }
+
+public int getActualHour(){
 return Calendar.get(Calendar.HOUR_OF_DAY);
 }
-public int GetActualmin(){
+public int getActualMin(){
 return Calendar.get(Calendar.MINUTE);
 }
-public int GetActualsec(){
+public int getActualSec(){
 return Calendar.get(Calendar.SECOND);
 }
 public int GetActualmonth(){
 return Calendar.get(Calendar.MONTH);
 }
-public int GetActualday(){
+public int getActualDay(){
 return Calendar.get(Calendar.DATE);
 }
 public int GetActualyear(){
 return Calendar.get(Calendar.YEAR);
 }
 public double GetCodeDate(){
-int h = this.GetActualhour();
-int m = this.GetActualmin();
-int s = this.GetActualsec();
+int h = this.getActualHour();
+int m = this.getActualMin();
+int s = this.getActualSec();
 int M = this.GetActualmonth();
-int d = this.GetActualday();
+int d = this.getActualDay();
 int y = this.GetActualyear();
 return s+m*100+h*10000+d*1000000+M*100000000;
+}
+
+public int getMinTimeDifference(Time t1, Time t2){
+    int dHour;
+    int dMin;
+    
+    dHour = t1.hour - t2.hour;
+    dMin = t1.min - t2.min;
+    
+    if(dHour < 0){
+        dHour = 24 + dHour;
+    }
+    
+    if(dMin < 0){
+        dMin = 60 + dMin;
+        dHour = dHour - 1;
+    }
+
+    return 60*dHour + dMin;
 }
 /*   public static void main(String[] args) {
     Time t = new Time();
